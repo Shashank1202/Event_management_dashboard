@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Event Management</h1>
+
+<div class="form-container">
+    <form action="/add_event" method="POST">
+        <input type="text" name="name" placeholder="Event Name" required>
+        <input type="text" name="description" placeholder="Description" required>
+        <input type="text" name="location" placeholder="Location" required>
+        <input type="date" name="date" required>
+        <button type="submit">Add Event</button>
+    </form>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.name }}</td>
+            <td>{{ event.description }}</td>
+            <td>{{ event.location }}</td>
+            <td>{{ event.date }}</td>
+            <td>
+                <form action="/delete_event/{{ event.id }}" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
